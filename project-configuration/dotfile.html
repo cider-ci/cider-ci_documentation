@@ -28,18 +28,18 @@
 
     <span class="s">context</span><span class="pi">:</span>
 
-      <span class="s">tasks</span><span class="pi">:</span> 
+      <span class="s">tasks</span><span class="pi">:</span>
 
-        <span class="s">example-task</span><span class="pi">:</span> 
+        <span class="s">example-task</span><span class="pi">:</span>
           <span class="s">name</span><span class="pi">:</span> <span class="s">Example Task</span>
 
-          <span class="s">traits</span><span class="pi">:</span> 
+          <span class="s">traits</span><span class="pi">:</span>
             <span class="s">linux</span><span class="pi">:</span> <span class="s">true</span>
             <span class="s">bash</span><span class="pi">:</span> <span class="s">true</span>
 
           <span class="s">scripts</span><span class="pi">:</span>
 
-            <span class="s">equality</span><span class="pi">:</span> 
+            <span class="s">equality</span><span class="pi">:</span>
               <span class="s">name</span><span class="pi">:</span> <span class="s">Equality Test</span>
 
               <span class="s">body</span><span class="pi">:</span> <span class="pi">|</span>
@@ -48,7 +48,7 @@
 </pre></td></tr></tbody></table> </div> </div> <div class=col-md-6> <p><a href="intro-job-13ba6f45.png"><img alt=Intro class=docu-image src="intro-job-13ba6f45.png"/></a></p> </div> </div> <h2 id=maps-and-arrays>Maps and Arrays</h2> <p>The omnipresence of maps and the absence of arrays in the dotfile is apparent. Maps are generally favored in Cider-CI because they enable inclusion. This is discussed in the <a href="advanced.html">Advanced Topics</a> page. The above example is actually included from the dotfile of the <a href="https://github.com/cider-ci/cider-ci_demo-project-bash">Bash Demo Project for Cider-CI</a> which is similar to the following example.</p> <div class="highlight yaml"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class=lineno>1
 2
 3
-4</pre></td><td class=code><pre><span class="s">_cider-ci_include</span><span class="pi">:</span> 
+4</pre></td><td class=code><pre><span class="s">_cider-ci_include</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="s">.cider-ci/jobs/attachments.yml</span>
   <span class="pi">-</span> <span class="s">.cider-ci/jobs/introduction.yml</span>
   <span class="pi">-</span> <span class="s">.cider-ci/jobs/timeout.yml</span>

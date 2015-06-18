@@ -17,9 +17,9 @@ rabbitmqctl set_user_tags cider-ci administrator
 2
 3
 4</pre></td><td class=code><pre>cp config/database_dev.yml config/database.yml
-bundle 
+bundle
 bundle <span class="nb">exec </span>rake db:create db:migrate
-bundle <span class="nb">exec </span>rake db:seed 
+bundle <span class="nb">exec </span>rake db:seed
 </pre></td></tr></tbody></table> </div> </div> </div> <h2 id=reverse-proxy>Reverse Proxy</h2> <div class=row> <div class=col-md-6> <p>A deployed environment of Cider-CI uses the Apache HTTP server as a reverse proxy. A development environment uses the <a href="https://github.com/cider-ci/cider-ci_reverse-proxy">Cider-CI Reverse Proxy</a> instead. The code is located in the <code>cider-ci/reverse-proxy</code> dictionary and the service can be started by running <code>./bin/run</code> from within that directory.</p> </div> <div class=col-md-6> <div class="highlight plaintext"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class=lineno>1
 2</pre></td><td class=code><pre>cd reverse-proxy
 ./bin/run

@@ -35,13 +35,13 @@
 
   <span class="s">job-prerequisite</span><span class="pi">:</span>
 
-    <span class="s">name</span><span class="pi">:</span> <span class="s">Jobs - Dependencies and Triggers - Prerequisite</span> 
+    <span class="s">name</span><span class="pi">:</span> <span class="s">Jobs - Dependencies and Triggers - Prerequisite</span>
     <span class="s">description</span><span class="pi">:</span> <span class="pi">|</span>
       <span class="no">This one serves as a prerequisite to "job-depends".</span>
       <span class="no">Additionally it will be automatically triggered if a branch matching the</span>
-      <span class="no">regular expression /^trigger-prerequisite$/ is updated. </span>
+      <span class="no">regular expression /^trigger-prerequisite$/ is updated.</span>
 
-    <span class="s">start-on</span><span class="pi">:</span> 
+    <span class="s">start-on</span><span class="pi">:</span>
     <span class="pi">-</span> <span class="s">type</span><span class="pi">:</span> <span class="s">branch.updated</span>
       <span class="s">include-match</span><span class="pi">:</span> <span class="s">^trigger-prerequisite$</span>
 
@@ -52,14 +52,14 @@
     <span class="s">name</span><span class="pi">:</span> <span class="s">Jobs - Dependencies and Triggers - Dependent</span>
     <span class="s">description</span><span class="pi">:</span> <span class="pi">|</span>
       <span class="no">This demo can only be started if the "job-prerequisite" has passed. There</span>
-      <span class="no">is also a corresponding trigger defined for the sake of demonstration. </span>
+      <span class="no">is also a corresponding trigger defined for the sake of demonstration.</span>
 
     <span class="s">depends-on</span><span class="pi">:</span>
     <span class="pi">-</span> <span class="s">type</span><span class="pi">:</span> <span class="s">job</span>
       <span class="s">job</span><span class="pi">:</span> <span class="s">job-prerequisite</span>
       <span class="s">states</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">passed</span><span class="pi">]</span>
 
-    <span class="s">start-on</span><span class="pi">:</span> 
+    <span class="s">start-on</span><span class="pi">:</span>
     <span class="pi">-</span> <span class="s">type</span><span class="pi">:</span> <span class="s">job.updated</span>
       <span class="s">job</span><span class="pi">:</span> <span class="s">job-prerequisite</span>
       <span class="s">states</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">passed</span><span class="pi">]</span>
