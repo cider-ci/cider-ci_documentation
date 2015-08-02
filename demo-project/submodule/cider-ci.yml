@@ -1,0 +1,20 @@
+# Note: separating jobs in this manner via includes is not necessarily good
+# practice. It is done here to show every feature in a small, and independent
+# however complete environment.
+
+_cider-ci_include:
+  - cider-ci/jobs/attachments.yml
+  - cider-ci/jobs/contexts.yml
+  - cider-ci/jobs/environment-variables.yml
+  - cider-ci/jobs/exclusive-executor-resource.yml
+  - cider-ci/jobs/exclusive-global-resources.yml
+  - cider-ci/jobs/generate-tasks.yml
+  - cider-ci/jobs/git-submodules.yml
+  - cider-ci/jobs/info.yml
+  - cider-ci/jobs/introduction.yml
+  - cider-ci/jobs/job-dependencies.yml
+  - cider-ci/jobs/json.json
+  - cider-ci/jobs/ports.yml
+  - cider-ci/jobs/result.yml
+  - cider-ci/jobs/script-dependencies.yml
+  - cider-ci/jobs/timeout.yml
