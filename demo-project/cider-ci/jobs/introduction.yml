@@ -1,7 +1,7 @@
 jobs:
 
   intro-demo:
-    name: Introduction Demo and Example
+    name: Introduction Demo and Example.
 
     context:
 
@@ -11,7 +11,6 @@ jobs:
           name: Example Task
 
           traits:
-            linux: true
             bash: true
 
           scripts:

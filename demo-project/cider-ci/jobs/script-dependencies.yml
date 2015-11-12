@@ -3,7 +3,7 @@ jobs:
   scripts-dependencies:
     name: Script Dependencies
     description: |
-      This job demonstrates scripts that are defined to depend on each other
+      This job demonstrates scripts which defined to depend on each other
       for starting and termination.
 
     context:
@@ -11,8 +11,8 @@ jobs:
       script-defaults:
         body: echo $(date) && sleep 1 && echo $(date) && test a = a
       task-defaults:
+        max-auto-trials: 1
         traits:
-          linux: true
           bash: true
 
       tasks:
@@ -94,11 +94,17 @@ jobs:
           scripts:
             initial:
               name: Initial
-              body: sleep 5
-            terminated:
+              body: |
+                echo "initial pid $$" >> initial.log
+                echo "initial pid $$"
+                time sleep 10 && echo "done"
+            to_be_terminated:
               name: Terminate when initial finished
-              timeout: 20
-              body: sleep 15
+              timeout: 30
+              body: |
+                echo "to be terminated pid $$" >> to_be_terminated.log
+                echo "to be terminated pid $$"
+                time sleep 20 && echo "should never be reached"
               start-when:
               - script: initial
                 states: [executing]

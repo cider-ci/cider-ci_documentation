@@ -3,9 +3,14 @@ jobs:
   environment-variables:
     name: Environment Variables Demo
     description: |
-      This job Demonstrates the usage of the `environment-variables`
-      directive.  It specifies a tasks which lists the environment variables
-      with `env | sort`.
+      This job Demonstrates the usage of the `environment-variables` and
+      the `template-environment-variables` directive.
+
+      The _Set and Show_ subcontext demonstrates inheritance and runs
+      some basic tests.
+
+      The _Substitution_ subcontext demonstrates the usage and tests
+      the `template-environment-variables` directive.
 
     context:
 
@@ -13,37 +18,98 @@ jobs:
         environment-variables:
           CI_TASK_DEFAULTS: "Inherited!"
           SOME_DEFAULT: "X"
+          THE_ANSWER: 42
         traits:
-          linux: true
           bash: true
 
-      tasks:
 
-        env-vars:
+      subcontexts:
 
-          name: Set and Show Environment Variables
-          environment-variables:
-            CI_THE_ANSWER: 42
-            CI_NULL_ENV_VAR: NULL
-            CI_BOOL_ENV_VAR: false
+        set_and_show:
 
-          scripts:
+          name: Set and Show
+
+          tasks:
 
             show:
-              body: env | sort
+              name: Set and Show Environment Variables
+              scripts:
+                show:
+                  body: |
+                    set -eux
+                    env | sort
 
-            test-task-env-vars:
-              body: |
-                test ${CI_THE_ANSWER} == "42"
-
-            test-inheritance:
-              body: |
-                test ${SOME_DEFAULT} == "X"
+            test-context-inheritance:
+              description: |
+                Test if an env-var setting is inherited from the super-context.
+              scripts:
+                test-inheritance:
+                  body: |
+                    set -eux
+                    env | sort
+                    test ${SOME_DEFAULT} == "X"
 
             test-script-overrides:
-              environment-variables:
-                SOME_DEFAULT: "Y"
-              body: |
-                test ${SOME_DEFAULT} == "Y"
+              description: |
+                Test if an inherited env-var setting is shadowed
+                by a script setting.
+              scripts:
+                test-script-overrides:
+                  environment-variables:
+                    SOME_DEFAULT: "Y"
+                  body: |
+                    set -eux
+                    env | sort
+                    test ${SOME_DEFAULT} == "Y"
+
+
+        substitution:
+
+          name: Substitution
+
+          tasks:
+
+            enabled-substitution:
+              name: "Enabled Substitution"
+              script-defaults:
+              scripts:
+                substitute_ci_var:
+                  environment-variables:
+                    THE_SUBSTITUTED_ANSWER: "{{THE_ANSWER}}"
+                  template-environment-variables: true
+                  body: |
+                    test "${THE_SUBSTITUTED_ANSWER}" = 42
+
+            recursive-substitution:
+              name: "Recursive Substitution"
+              ports:
+                XVNC_PORT:
+                  inet_address: "localhost"
+                  min: 5900
+                  max: 5999
+              scripts:
+                substitute_ci_var:
+                  environment-variables:
+                    T1: "{{T2}}"
+                    T2: "{{T3}}"
+                    T3: 7
+                    P1: "{{XVNC_PORT}}"
+                    P2: "{{P1}}"
+                    P3: "{{P2}}"
+                  template-environment-variables: true
+                  body: |
+                    set -eux
+                    test "${T1}" = 7
+                    test "${P3}" = "${XVNC_PORT}"
+                    test "${P3}_${T1}" = "${XVNC_PORT}_7"
+
+            disabled-substitution:
+              name: "Disabled Substitution"
+              scripts:
+                substitute_ci_var:
+                  environment-variables:
+                    THE_SUBSTITUTED_ANSWER: "{{THE_ANSWER}}"
+                  body: |
+                    test "${THE_SUBSTITUTED_ANSWER}" = '{{THE_ANSWER}}'
 
 
