@@ -1,24 +1,8 @@
 jobs:
-
   intro-demo:
     name: Introduction Demo and Example
-
-    context:
-
-      tasks:
-
-        example-task:
-          name: Example Task
-
-          traits:
-            linux: true
-            bash: true
-
-          scripts:
-
-            equality:
-              name: Equality Test
-
-              body: |
-                #!/usr/bin/env bash
-                test a = a
+    description: |
+      A very concise job declaration which uses the compact notation.
+    task_defaults:
+      traits: [Bash]
+    task: test a = a

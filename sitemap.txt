@@ -3,8 +3,6 @@ http://docs.cider-ci.info/api/index.html
 http://docs.cider-ci.info/api/storage_resources.html
 http://docs.cider-ci.info/demo-project/README.html
 http://docs.cider-ci.info/demo-project/submodule/README.html
-http://docs.cider-ci.info/demo-project/submodule/submodule/README.html
-http://docs.cider-ci.info/demo-project/submodule/submodule/submodule/README.html
 http://docs.cider-ci.info/development/architecture/index.html
 http://docs.cider-ci.info/development/index.html
 http://docs.cider-ci.info/development/setup/index.html
@@ -20,7 +18,7 @@ http://docs.cider-ci.info/installation/setup-and-deploy/index.html
 http://docs.cider-ci.info/installation/setup-and-deploy/windows-preparation/index.html
 http://docs.cider-ci.info/sitemap.html
 http://docs.cider-ci.info/installation/upgrading/index.html
-http://docs.cider-ci.info/project-configuration/configuration-file.html
+http://docs.cider-ci.info/project-configuration/context.html
 http://docs.cider-ci.info/project-configuration/tasks.html
 http://docs.cider-ci.info/project-configuration/shared.html
 http://docs.cider-ci.info/project-configuration/scripts.html
@@ -28,4 +26,5 @@ http://docs.cider-ci.info/introduction/quick-start/index.html
 http://docs.cider-ci.info/project-configuration/jobs.html
 http://docs.cider-ci.info/project-configuration/index.html
 http://docs.cider-ci.info/project-configuration/advanced.html
+http://docs.cider-ci.info/project-configuration/configuration-file.html
 http://docs.cider-ci.info/introduction/index.html

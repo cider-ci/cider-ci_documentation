@@ -16,8 +16,12 @@ jobs:
 
           scripts:
             main:
-              timeout: 5
+              timeout: 5 Seconds
               body: sleep 1 && exit 0
+            after-main:
+              start_when:
+                - script: main
+              body: exit 0
 
         fail:
 
@@ -27,22 +31,23 @@ jobs:
             We sleep much longer than the timeout allows. Cider-CI will terminate the
             script with a appropriate method available for the given operating system.
 
-          trial-attachments:
+          trial_attachments:
             logs:
-              glob: log.txt
-              content-type: text/plain
+              content_type: text/plain
+              include_match: ^log\.txt$
 
           scripts:
             main:
-              timeout: 5
+              timeout: 5 Seconds
               body: |
                 #!/usr/bin/env bash
                 echo "MY PID $$" >> log.txt
-                sleep 100 &&  exit 0
+                sleep 15 && exit 0
+            after-main:
+              start_when:
+                - script: main
+              body: exit 0
 
-
-
-      task-defaults:
+      task_defaults:
         traits:
-          linux: true
-          bash: true
+          Bash: true

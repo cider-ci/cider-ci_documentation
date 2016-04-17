@@ -1,6 +1,8 @@
 jobs:
   intro-demo:
-    name: Introduction Demo and Example.
-    task-defaults:
-      traits: [bash]
+    name: Introduction Demo and Example
+    description: |
+      A very concise job declaration which uses the compact notation.
+    task_defaults:
+      traits: [Bash]
     task: test a = a
