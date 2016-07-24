@@ -1,0 +1,66 @@
+<!DOCTYPE html> <html lang=en> <head> <meta charset=utf-8> <meta content='IE=edge' http-equiv=X-UA-Compatible> <meta content='width=device-width, initial-scale=1' name=viewport> <title>Cider-CI Docs</title> <link href="assets/stylesheets/app-b5c8715a.css" rel=stylesheet /> <script src="assets/javascripts/vendor-1e8b60d8.js"></script> <script src="assets/javascripts/app-871935e9.js"></script> </head> <body id=the-cider-ci-documentation> <div class=container> <nav class='navbar navbar-inverse'> <div class=container-fluid> <div class=navbar-header> <a class=navbar-brand href="./">Cider-CI Documentation </a></div> <form action='/search.html' class='navbar-form navbar-left' id=search method=get role=search> <div class=form-group> <input class=form-control id=search-term name=term placeholder=Search> <button class='btn btn-default' style='display: none' type=submit>Submit</button> </div> </form> <ul class='nav navbar-nav'> <li> <a href="introduction/">Introduction </a></li> <li> <a href="introduction/quick-start/">Quick-Start </a></li> <li> <a href="sitemap.html">Sitemap </a></li> </ul> </div> </nav> <div class=row> <div class=col-md-6> <ol class=breadcrumb> <li> <a href="./">Home </a></li> <li> <a href="search.html">Search </a></li> </ol> </div> <div class=col-md-6> </div> </div> <div class=content> <script>
+  (function() {
+    $(function() {
+      var evalSearch, logger, lunrData, lunrIndex, renderResultDocs;
+      logger = Logger.create({
+        namespace: 'Search',
+        level: 'info'
+      });
+      logger.info("Initializing Search");
+      lunrIndex = null;
+      lunrData = null;
+      $.ajax({
+        url: '/search.json',
+        cache: true,
+        method: 'GET',
+        success: function(data) {
+          var term;
+          lunrData = data;
+          lunrIndex = lunr.Index.load(lunrData.index);
+          term = URI(location).query(true)["term"];
+          evalSearch(term);
+          $("input#search-term").val(term);
+          return $("#wait-message").remove();
+        }
+      });
+      renderResultDocs = function(docs) {
+        $("#search-results").empty();
+        if (docs.length === 0) {
+          return $("#search-results").append("No match!");
+        } else {
+          return docs.map(function(doc) {
+            return $("#search-results").append("<li>\n  <a href='" + doc.url + "'>\n    <h3> " + doc.title + " </h3>\n    " + doc.url + "\n  </a>\n</li>");
+          });
+        }
+      };
+      evalSearch = function(term) {
+        var docs, results;
+        if (term != null) {
+          $("#title-term").empty();
+          results = lunrIndex.search(term);
+          docs = results.map(function(result) {
+            return lunrData.docs[result.ref];
+          });
+          renderResultDocs(docs);
+          return $("#title-term").append(term);
+        }
+      };
+      $('form#search').on('submit', function(e) {
+        var term;
+        e.preventDefault();
+        term = $("input#search-term").val();
+        history.pushState(null, null, URI(location).search({
+          term: term
+        }).toString());
+        return evalSearch(term);
+      });
+      return window.onpopstate = function(event) {
+        var term;
+        term = URI(location).query(true)["term"];
+        $("input#search-term").val(term);
+        return evalSearch(term);
+      };
+    });
+  
+  }).call(this);
+</script> <h1> Search Results for "<span id=title-term></span>" </h1> <p class=text-warning id=wait-message>This page requires JavaScript. The search index is being prepared. Please wait.</p> <ol id=search-results></ol> </div> <div class=row> <div class=col-md-12> <footer> <div class=pull-right> Cider-CI <span class=semantic-version><span class=major>4</span><span class=divider>.</span><span class=minor>1</span><span class=patch-pre-build><span class=divider>.</span><span class=patch>0</span><span class=divider>-</span><span class=pre>0.0</span></span></span> Documentation 2016-07-24 © Thomas Schank and contributors </div> </footer> </div> </div> </div> </body> </html>
